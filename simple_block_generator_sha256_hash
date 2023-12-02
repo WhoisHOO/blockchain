@@ -1,0 +1,53 @@
+import tkinter as tk
+from tkinter import messagebox
+import hashlib
+
+def update_hash():
+    # Collecting data from the GUI
+    block = block_entry.get()
+    chain = chain_entry.get()
+    number = number_entry.get()
+    nonce = nonce_entry.get()
+    data = data_entry.get()
+
+    # Concatenating the input data
+    combined_data = block + chain + number + nonce + data
+
+    # Creating a SHA-256 hash of the data
+    hash_object = hashlib.sha256(combined_data.encode())
+    hash_hex = hash_object.hexdigest()
+
+    # Displaying the hash result
+    messagebox.showinfo("Hash Result", f"Hash: {hash_hex}")
+
+# Create the main window
+root = tk.Tk()
+root.title("Hash Generator")
+
+# Create and place labels and entry widgets
+tk.Label(root, text="Block").grid(row=0, column=0)
+block_entry = tk.Entry(root)
+block_entry.grid(row=0, column=1)
+
+tk.Label(root, text="Chain").grid(row=1, column=0)
+chain_entry = tk.Entry(root)
+chain_entry.grid(row=1, column=1)
+
+tk.Label(root, text="Number").grid(row=2, column=0)
+number_entry = tk.Entry(root)
+number_entry.grid(row=2, column=1)
+
+tk.Label(root, text="Nonce").grid(row=3, column=0)
+nonce_entry = tk.Entry(root)
+nonce_entry.grid(row=3, column=1)
+
+tk.Label(root, text="Data").grid(row=4, column=0)
+data_entry = tk.Entry(root)
+data_entry.grid(row=4, column=1)
+
+# Create and place the "Update Hash" button
+update_hash_button = tk.Button(root, text="Update Hash", command=update_hash)
+update_hash_button.grid(row=5, column=0, columnspan=2)
+
+# Start the GUI event loop
+root.mainloop()
